@@ -4,9 +4,10 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run start:node\" \"npm run start:html\"",
+    "start": "concurrently \"npm run start:fetch\" \"npm run start:socket\" \"npm run start:html\"",
     "start:html": "serve ./html -l 3303",
-    "start:node": "node node/fetchRes.cjs"
+    "start:fetch": "node node/fetchRes.cjs",
+    "start:socket": "node node/webSocket.cjs"
   },
   "keywords": [],
   "author": "xiaoxiaoxuan114",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.1",
-    "serve": "^14.2.1"
+    "serve": "^14.2.1",
+    "ws": "^8.14.0"
   }
 }
