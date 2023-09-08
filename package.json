@@ -1,0 +1,21 @@
+{
+  "name": "pseudo_streaming_request",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run start:node\" \"npm run start:html\"",
+    "start:html": "serve ./html -l 3303",
+    "start:node": "node node/fetchRes.cjs"
+  },
+  "keywords": [],
+  "author": "xiaoxiaoxuan114",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "serve": "^14.2.1"
+  }
+}
