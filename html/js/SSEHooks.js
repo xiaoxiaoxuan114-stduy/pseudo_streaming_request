@@ -10,7 +10,6 @@ const updateMsg = () => {
 function startStream() {
   const eventSource = new EventSource(streamUrl)
   eventSource.addEventListener('message', ({ data }) => {
-    console.log(data)
     if (data === '\\n') // 区分换行
       string += '\n'
     else
@@ -22,7 +21,7 @@ function startStream() {
     eventSource.close()
   })
   eventSource.addEventListener('end', () => {
-    console.log('流式请求结束')
+    console.log('流式响应结束')
     eventSource.close()
   })
 }
