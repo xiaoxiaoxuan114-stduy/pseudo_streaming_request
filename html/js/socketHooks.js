@@ -7,15 +7,15 @@ const updateMsg = () => {
   msg.innerText = string
 }
 
-const socket = new WebSocket(streamUrl);
+const socket = new WebSocket(streamUrl)
 
 // 监听连接事件
 socket.addEventListener('open', function (event) {
-  console.log('已连接到服务器');
+  console.log('已连接到服务器')
   
   // 向服务器发送消息
-  socket.send('Hello, WebSocket!');
-});
+  socket.send('Hello, WebSocket!')
+})
 
 // 监听消息事件
 socket.addEventListener('message', function ({ data }) {
@@ -23,14 +23,14 @@ socket.addEventListener('message', function ({ data }) {
     string += data
     updateMsg()
   }
-});
+})
 
 // 监听关闭事件
 socket.addEventListener('close', function (event) {
-  console.log('连接已关闭');
-});
+  console.log('连接已关闭')
+})
 
 // 监听错误事件
 socket.addEventListener('error', function (event) {
-  console.error('连接出错：', event);
-});
+  console.error('连接出错：', event)
+})

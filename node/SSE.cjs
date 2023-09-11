@@ -28,7 +28,7 @@ const msg = '当生命的钟声敲响\n' +
 const server = http.createServer(async (req, res) => {
   console.log('request is enter')
   res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
+    'Content-Type': 'text/event-stream; charset=utf-8',
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive',
     'Access-Control-Allow-Origin': '*' // 允许任意跨域
@@ -38,7 +38,10 @@ const server = http.createServer(async (req, res) => {
   
   let timer = setInterval(() => {
     // 一定要写流式响应的事件类型，并且和前端/ios/android监听事件一致
-    res.write(`event:message\ndata:${msg.charAt(i++)}\n\n`)
+    res.write(`event:message\ndata:${
+      msg.charAt(i) === '\n' ? '\\n' : msg.charAt(i)
+    }\n\n`)
+    i ++
     if (i > msg.length) {
       clearInterval(timer)
       // 记得关闭

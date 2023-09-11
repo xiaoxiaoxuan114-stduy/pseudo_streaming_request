@@ -10,7 +10,11 @@ const updateMsg = () => {
 function startStream() {
   const eventSource = new EventSource(streamUrl)
   eventSource.addEventListener('message', ({ data }) => {
-    string += data
+    console.log(data)
+    if (data === '\\n') // 区分换行
+      string += '\n'
+    else
+      string += data
     updateMsg()
   })
   eventSource.addEventListener('error', () => {
