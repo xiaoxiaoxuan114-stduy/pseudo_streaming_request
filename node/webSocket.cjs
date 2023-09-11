@@ -1,7 +1,9 @@
 const WebSocket = require('ws')
 
 // 创建 WebSocket 服务器
-const wss = new WebSocket.Server({ port: 3001 })
+const wss = new WebSocket.Server({ port: 3001 }, () => {
+  console.log('socket server is running')
+})
 
 const msg = '当生命的钟声敲响\n' +
   '我们才发现时间的匆忙\n' +

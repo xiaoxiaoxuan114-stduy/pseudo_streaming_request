@@ -1,4 +1,4 @@
-const http = require('http');
+const http = require('http')
 
 const msg = '当生命的钟声敲响\n' +
   '我们才发现时间的匆忙\n' +
@@ -28,20 +28,26 @@ const msg = '当生命的钟声敲响\n' +
 const server = http.createServer(async (req, res) => {
   console.log('request is enter')
   res.writeHead(200, {
-    'Content-Type': 'text/plain',
-    'Transfer-Encoding': 'chunked',
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
     'Access-Control-Allow-Origin': '*' // 允许任意跨域
-  });
+  })
   
-  // 模拟逐步生成响应数据
-  for (let i = 0; i < msg.length; i++) {
-    res.write(msg.charAt(i));
-    await new Promise(resolve => setTimeout(resolve, 100));
-  }
+  let i = 0
   
-  res.end();
-});
+  let timer = setInterval(() => {
+    // 一定要写流式响应的事件类型，并且和前端/ios/android监听事件一致
+    res.write(`event:message\ndata:${msg.charAt(i++)}\n\n`)
+    if (i > msg.length) {
+      clearInterval(timer)
+      // 记得关闭
+      res.write('event:end\ndata: \n\n')
+    }
+  }, 100)
+  
+})
 
-server.listen(3000, () => {
-  console.log('XMLHttpRequest server is running')
+server.listen(3002, () => {
+  console.log('SSE server is running')
 })
